@@ -20,6 +20,10 @@ export const options = {
 
 export default async function () {
   const page = await browser.newPage();
+  page.setViewportSize({
+    width: 1900,
+    height: 1080,
+  });
 
   try {
     await page.goto("https://beta.hasaki.vn/#popup-login");
@@ -46,11 +50,9 @@ export default async function () {
         `//button[@onclick="window.pageCartStatic.onClick('cartCheckOutClick', this)"]`
       )
       .click();
-    sleep(5);
-
-    await page.screenshot({ path: "screenshots/screenshot.png" });
+    sleep(3);
+    page.screenshot({ path: "src/screenshots/image.png" });
   } finally {
     await page.close();
-    await browser.close();
   }
 }
