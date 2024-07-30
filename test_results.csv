@@ -1,0 +1,4 @@
+metric_name,timestamp,metric_value,check,error,error_code,expected_response,group,method,name,proto,scenario,service,status,subproto,tls_version,url,extra_tags,metadata
+data_sent,1722244458,0.000000,,,,,::setup,,,,,,,,,,,
+data_received,1722244458,0.000000,,,,,::setup,,,,,,,,,,,
+iteration_duration,1722244458,0.371667,,,,,::setup,,,,,,,,,,,
