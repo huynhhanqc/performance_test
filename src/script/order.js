@@ -5,21 +5,69 @@ import OrderPage from "../Page/OrderPage.js";
 
 export const options = {
   scenarios: {
-    shared_iter_scenario_order_1_sku: {
+    login: {
       options: {
         browser: {
           type: "chromium",
         },
       },
+      exec: 'login',
       executor: "shared-iterations",
       vus: 1,
-      iterations: 3,
-      startTime: "0s",
+      iterations: 1,
+    },
+    add_sku_by_config: {
+      options: {
+        browser: {
+          type: "chromium",
+        },
+      },
+      exec: 'add_sku_by_config',
+      executor: "shared-iterations",
+      vus: 1,
+      iterations: 1,
+    },
+    go_to_checkout: {
+      options: {
+        browser: {
+          type: "chromium",
+        },
+      },
+      exec: 'go_to_checkout',
+      executor: "shared-iterations",
+      vus: 1,
+      iterations: 1,
     },
   },
 };
 
-export default async function BrowserOrder() {
+export async function login() {
+  console.log("login");
+
+  const page = await browser.newPage();
+  const loginPage = new LoginPage(page);
+  const orderPage = new OrderPage(page);
+  page.setViewportSize({
+    width: 1900,
+    height: 1080,
+  });
+}
+
+export async function add_sku_by_config() {
+  console.log("add_sku_by_config");
+
+  const page = await browser.newPage();
+  const loginPage = new LoginPage(page);
+  const orderPage = new OrderPage(page);
+  page.setViewportSize({
+    width: 1900,
+    height: 1080,
+  });
+}
+
+export async function go_to_checkout() {
+  console.log("go_to_checkout");
+
   const page = await browser.newPage();
   const loginPage = new LoginPage(page);
   const orderPage = new OrderPage(page);
@@ -32,17 +80,18 @@ export default async function BrowserOrder() {
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
-    sleep(3);
+    await page.screenshot({ path: "screenshots/screenshot1.png" });
     await orderPage.searchSku("249500011");
-    await orderPage.CLickBtnSearch();
-    sleep(2);
+    await Promise.all([page.waitForNavigation(), orderPage.CLickBtnSearch()]);
+    await page.screenshot({ path: "screenshots/screenshot2.png" });
     await orderPage.clickBtnAddCard();
-    sleep(3);
-    await orderPage.clickCard();
-    sleep(2);
-    await orderPage.clickSubmitThdh();
-    await page.screenshot({ path: "screenshots/screenshot.png" });
-    sleep(2);
+    await page.screenshot({ path: "screenshots/screenshot3.png" });
+    sleep(3)
+    await Promise.all([page.waitForNavigation(), orderPage.clickCard()]);
+    await page.screenshot({ path: "screenshots/screenshot4.png" });
+    await Promise.all([page.waitForNavigation(), orderPage.clickSubmitThdh()]);
+    sleep(3)
+    await page.screenshot({ path: "screenshots/screenshot5.png" });
   } finally {
     await page.close();
   }

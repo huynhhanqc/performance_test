@@ -1,0 +1,10 @@
+{
+    "name": "Perfomance Test",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "extensions": [
+        "ms-vscode.makefile-tools"
+    ]
+}

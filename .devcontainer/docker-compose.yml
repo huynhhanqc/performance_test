@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    environment:
+      - APP_ENV=local
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    command: /bin/bash -c "while sleep 1000; do :; done"
+    volumes:
+      - ..:/workspace:cached
+    restart: unless-stopped
