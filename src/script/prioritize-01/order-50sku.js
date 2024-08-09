@@ -5,13 +5,13 @@ import OrderPage from "../../Page/OrderPage.js";
 
 export const options = {
   scenarios: {
-    order10: {
+    order50: {
       options: {
         browser: {
           type: "chromium",
         },
       },
-      exec: "checkout10",
+      exec: "checkout50",
       executor: "shared-iterations",
       vus: 1,
       iterations: 1,
@@ -19,8 +19,8 @@ export const options = {
   },
 };
 
-export async function checkout10() {
-  const listProduct = [100080050, 100080040, 100190186, 206200079, 100540086];
+export async function checkout50() {
+  const listProduct = [318900012, 422220412, 205100137, 422208973, 422204884];
   const page = await browser.newPage();
 
   const loginPage = new LoginPage(page);

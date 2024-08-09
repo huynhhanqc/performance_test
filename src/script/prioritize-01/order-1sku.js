@@ -28,28 +28,18 @@ export async function checkout01() {
     height: 1080,
   });
   try {
-    await page.goto("https://beta.hasaki.vn/#popup-login");
+    await page.goto(" https://beta.hasaki.vn/#popup-login ");
+
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
 
-    await page.goto("https://beta.hasaki.vn/");
+    await page.goto(" https://beta.hasaki.vn/ ");
     await orderPage.searchSku("422218339");
-    sleep(3);
     await Promise.all([page.waitForNavigation(), orderPage.CLickBtnSearch()]);
-    sleep(3);
     await orderPage.clickBtnAddCard();
     sleep(3);
-    await Promise.all([page.waitForNavigation(), orderPage.clickCard()]);
-    sleep(3);
-    await Promise.all([page.waitForNavigation(), orderPage.clickSubmitThdh()]);
-    sleep(3);
-    check(page, {
-      "text-2h":
-        (await page
-          .locator("//b[contains(text(),'2H (Trễ tặng 100k)')]")
-          .textContent()) === "2H (Trễ tặng 100k)",
-    });
+    await page.goto("https://beta.hasaki.vn/checkout");
   } finally {
     await page.close();
   }

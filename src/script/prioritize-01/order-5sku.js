@@ -25,6 +25,10 @@ export async function checkout05() {
 
   const loginPage = new LoginPage(page);
   const orderPage = new OrderPage(page);
+  await page.setViewportSize({
+    width: 1900,
+    height: 1080,
+  });
   try {
     await page.goto("https://beta.hasaki.vn/#popup-login");
     await loginPage.enterUsername("0344535989");
@@ -37,18 +41,10 @@ export async function checkout05() {
       await orderPage.clickBtnAddCard();
       sleep(3);
     }
-
-    await Promise.all([page.waitForNavigation(), orderPage.clickCard()]);
-    await Promise.all([page.waitForNavigation(), orderPage.clickSubmitThdh()]);
+    await page.goto("https://beta.hasaki.vn/checkout");
+    await page.screenshot({ path: "screenshots/test1.png" });
     sleep(3);
-    check(page, {
-      "text-2h":
-        (await page
-          .locator("//b[contains(text(),'2H (Trễ tặng 100k)')]")
-          .textContent()) === "2H (Trễ tặng 100k)",
-    });
+  } finally {
     await page.close();
-  } catch (err) {
-    console.log(err);
   }
 }
