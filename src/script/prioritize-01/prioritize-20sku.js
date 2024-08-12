@@ -5,13 +5,13 @@ import OrderPage from "../../Page/OrderPage.js";
 
 export const options = {
   scenarios: {
-    order05: {
+    order20: {
       options: {
         browser: {
           type: "chromium",
         },
       },
-      exec: "checkout05",
+      exec: "checkout20",
       executor: "shared-iterations",
       vus: 1,
       iterations: 1,
@@ -19,8 +19,14 @@ export const options = {
   },
 };
 
-export async function checkout05() {
-  const listProduct = [422218339, 422213292, 422220412, 318900012];
+export async function checkout20() {
+  const listProduct = [
+    "217300001",
+    "213300025",
+    "204100023",
+    "201600072",
+    "207500001",
+  ];
   const page = await browser.newPage();
 
   const loginPage = new LoginPage(page);
@@ -42,7 +48,6 @@ export async function checkout05() {
       sleep(3);
     }
     await page.goto("https://beta.hasaki.vn/checkout");
-    await page.screenshot({ path: "screenshots/test1.png" });
     sleep(3);
   } finally {
     await page.close();

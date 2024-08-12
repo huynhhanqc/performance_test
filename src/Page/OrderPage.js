@@ -12,9 +12,11 @@ class OrderPage {
     this.btnSubmit = page.locator(
       "(//button[@type='submit'][contains(text(),'Tiến hành đặt hàng')])[1]"
     );
-    // this.btnDeleteProduct = page.$$(
-    //   "//a[@class='item_sub_sp _removeItemCart']"
-    // );
+    this.btnChangeAddress = page.locator(
+      "(//button[@aria-label='Thay đổi'][contains(text(),'Thay đổi')])[1]"
+    );
+    this.btnContinue = page.locator("//button[contains(text(),'Tiếp tục')]");
+    this.btnDeleteProduct = page.locator("//*[contains(text(),'Xóa')]");
   }
 
   async searchSku(sku) {
@@ -32,11 +34,15 @@ class OrderPage {
   async clickSubmit() {
     await this.btnSubmit.click();
   }
-  // async clickBtnDeleteProduct() {
-  //   // for (let i = 0; i < btnDeleteProduct.length; i++) {
-  //   //   await btnDeleteProduct[i].click();
-  //   // }
-  // }
+  async clickBtnChangeAddress() {
+    await this.btnChangeAddress.click();
+  }
+  async clickBtnContinue() {
+    await this.btnContinue.click();
+  }
+  async clickBtnDeleteProduct() {
+    await this.btnDeleteProduct.click();
+  }
 }
 
 export default OrderPage;
