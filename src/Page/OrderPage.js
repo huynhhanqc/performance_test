@@ -1,6 +1,8 @@
 class OrderPage {
   constructor(page) {
     this.page = page;
+    this.urlHomePage = " https://beta.hasaki.vn/ ";
+    this.urlCheckOut = "https://beta.hasaki.vn/checkout";
     this.searchProduct = page.locator("//input[@id='search']");
     this.btnSearch = page.locator("//img[@class='icon_search loading']");
     this.btnAddCard = page.locator(
@@ -18,7 +20,12 @@ class OrderPage {
     this.btnContinue = page.locator("//button[contains(text(),'Tiếp tục')]");
     this.btnDeleteProduct = page.locator("//*[contains(text(),'Xóa')]");
   }
-
+  async goToUrlHomePage() {
+    await this.page.goto(this.urlHomePage);
+  }
+  async goToUrlCheckOut() {
+    await this.page.goto(this.urlCheckOut);
+  }
   async searchSku(sku) {
     await this.searchProduct.fill(sku);
   }

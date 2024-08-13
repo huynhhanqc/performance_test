@@ -33,12 +33,17 @@ export async function deleteProduct() {
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     await orderPage.clickCard();
-    const xoaButtons = page.locator("//*[contains(text(),'Xóa')]");
-    for (let i = 0; i < xoaButtons.count; i++) {
-      await xoaButtons[i].click();
-      await page.waitForTimeout(2000);
+    sleep(2);
+    while (true) {
+      const btnDeleteProduct = await page.$(
+        "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
+      );
+      if (!btnDeleteProduct) {
+        break;
+      }
+      await btnDeleteProduct.click();
+      await page.waitForTimeout(1000);
     }
-    await page.waitForTimeout(1000);
   } finally {
     await page.close();
   }

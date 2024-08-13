@@ -16,11 +16,28 @@ export const options = {
       vus: 1,
       iterations: 1,
     },
+    iterations_order15: {
+      options: {
+        browser: {
+          type: "chromium",
+        },
+      },
+      exec: "checkout",
+      executor: "shared-iterations",
+      vus: 1,
+      iterations: 2,
+    },
   },
 };
 
 export async function checkout15() {
-  const listProduct = [206200069, 206200071, 422205736, 422209640, 422209638];
+  const listProduct = [
+    "204900024",
+    "204900004",
+    "201600074",
+    "100150058",
+    "201600019",
+  ];
   const page = await browser.newPage();
 
   const loginPage = new LoginPage(page);
@@ -30,18 +47,38 @@ export async function checkout15() {
     height: 1080,
   });
   try {
-    await page.goto("https://beta.hasaki.vn/#popup-login");
+    await loginPage.urlLoginPage();
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     for (let i = 0; i < listProduct.length; i++) {
-      await page.goto("https://beta.hasaki.vn/");
+      await orderPage.goToUrlHomePage();
       await orderPage.searchSku(listProduct[i]);
       await Promise.all([page.waitForNavigation(), orderPage.CLickBtnSearch()]);
       await orderPage.clickBtnAddCard();
       sleep(3);
     }
-    await page.goto("https://beta.hasaki.vn/checkout");
+    await orderPage.goToUrlCheckOut();
+    sleep(3);
+  } finally {
+    await page.close();
+  }
+}
+export async function checkout() {
+  const page = await browser.newPage();
+  const loginPage = new LoginPage(page);
+  const orderPage = new OrderPage(page);
+  await page.setViewportSize({
+    width: 1900,
+    height: 1080,
+  });
+  try {
+    await loginPage.urlLoginPage();
+    await loginPage.enterUsername("0344535989");
+    await loginPage.enterPassword("Truonghan1506");
+    await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
+    sleep(3);
+    await orderPage.goToUrlCheckOut();
     sleep(3);
   } finally {
     await page.close();
