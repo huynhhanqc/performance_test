@@ -5,7 +5,8 @@ import OrderPage from "../../Page/OrderPage.js";
 
 export const options = {
   scenarios: {
-    order01: {
+    order_rule_02_01_sku: {
+      startTime: "0s",
       options: {
         browser: {
           type: "chromium",
@@ -16,7 +17,8 @@ export const options = {
       vus: 1,
       iterations: 1,
     },
-    iterations_order01: {
+    order_rule_2_01_sku: {
+      startTime: "20s",
       options: {
         browser: {
           type: "chromium",
@@ -40,15 +42,20 @@ export async function checkout01() {
   });
   try {
     await loginPage.urlLoginPage();
-    await loginPage.enterUsername("0344535989");
-    await loginPage.enterPassword("Truonghan1506");
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
+    await loginPage.enterUsername("auto2@yopmail.com");
+    await loginPage.enterPassword("123456");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     await orderPage.goToUrlHomePage();
-    await orderPage.searchSku("200400012");
+    sleep(3);
+    await orderPage.searchSku("100540086");
     await Promise.all([page.waitForNavigation(), orderPage.CLickBtnSearch()]);
     await orderPage.clickBtnAddCard();
     sleep(3);
     await orderPage.goToUrlCheckOut();
+    sleep(3);
   } finally {
     await page.close();
   }
@@ -63,8 +70,11 @@ export async function checkout() {
   });
   try {
     await loginPage.urlLoginPage();
-    await loginPage.enterUsername("0344535989");
-    await loginPage.enterPassword("Truonghan1506");
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
+    await loginPage.enterUsername("auto2@yopmail.com");
+    await loginPage.enterPassword("123456");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     sleep(3);
     await orderPage.goToUrlCheckOut();

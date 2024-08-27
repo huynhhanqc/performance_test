@@ -1,6 +1,6 @@
 export K6_BROWSER_HEADLESS := true
 REPORT_DIR := src/Reports/report-prioritize01
-# REPORT_DIR := src/Reports/report-prioritize02
+REPORT_DIR := src/Reports/report-prioritize02
 # REPORT_DIR := src/Reports/report-prioritize03
 # REPORT_DIR := src/Reports/report-prioritize04
 # REPORT_DIR := src/Reports/report-prioritize05
@@ -26,15 +26,15 @@ MERGED_REPORT := $(REPORT_DIR)/merged-report.csv
 run-test-prioritize-01: 
 	k6 run --out csv=$(REPORT_DIR)/report-1sku.csv src/script/prioritize-01/prioritize-1sku.js
 	k6 run --out csv=$(REPORT_DIR)/report-5sku.csv src/script/prioritize-01/prioritize-5sku.js 
-	# k6 run --out csv=$(REPORT_DIR)/report-10sku.csv src/script/prioritize-01/prioritize-10sku.js
-	# k6 run --out csv=$(REPORT_DIR)/report-15sku.csv src/script/prioritize-01/prioritize-15sku.js 
-	# k6 run --out csv=$(REPORT_DIR)/report-20sku.csv src/script/prioritize-01/prioritize-20sku.js
-	# k6 run --out csv=$(REPORT_DIR)/report-25sku.csv src/script/prioritize-01/prioritize-25sku.js
-	# k6 run --out csv=$(REPORT_DIR)/report-30sku.csv src/script/prioritize-01/prioritize-30sku.js
-	# k6 run --out csv=$(REPORT_DIR)/report-35sku.csv src/script/prioritize-01/prioritize-35sku.js 
-	# k6 run --out csv=$(REPORT_DIR)/report-40sku.csv src/script/prioritize-01/prioritize-40sku.js 
-	# k6 run --out csv=$(REPORT_DIR)/report-45sku.csv src/script/prioritize-01/prioritize-45sku.js
-	# k6 run --out csv=$(REPORT_DIR)/report-50sku.csv src/script/prioritize-01/prioritize-50sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-10sku.csv src/script/prioritize-01/prioritize-10sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-15sku.csv src/script/prioritize-01/prioritize-15sku.js 
+	k6 run --out csv=$(REPORT_DIR)/report-20sku.csv src/script/prioritize-01/prioritize-20sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-25sku.csv src/script/prioritize-01/prioritize-25sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-30sku.csv src/script/prioritize-01/prioritize-30sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-35sku.csv src/script/prioritize-01/prioritize-35sku.js 
+	k6 run --out csv=$(REPORT_DIR)/report-40sku.csv src/script/prioritize-01/prioritize-40sku.js 
+	k6 run --out csv=$(REPORT_DIR)/report-45sku.csv src/script/prioritize-01/prioritize-45sku.js
+	k6 run --out csv=$(REPORT_DIR)/report-50sku.csv src/script/prioritize-01/prioritize-50sku.js
 # Combine all CSVs into one file
 	@echo "Merging CSV reports into one file..."
 	@{ head -n 1 $(REPORT_DIR)/report-1sku.csv; \
@@ -43,31 +43,36 @@ run-test-prioritize-01:
 
 
 run-test-prioritize-02: 
-	k6 run --out csv=$(REPORT_DIR)/report-1sku.csv src/script/prioritize-02/prioritize-1sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-1sku.csv src/script/prioritize-02/prioritize-1sku.js
 	k6 run --out csv=$(REPORT_DIR)/report-5sku.csv src/script/prioritize-02/prioritize-5sku.js 
-	k6 run --out csv=$(REPORT_DIR)/report-10sku.csv src/script/prioritize-02/prioritize-10sku.js
-	k6 run --out csv=$(REPORT_DIR)/report-15sku.csv src/script/prioritize-02/prioritize-15sku.js 
-	k6 run --out csv=$(REPORT_DIR)/report-20sku.csv src/script/prioritize-02/prioritize-20sku.js
-	k6 run --out csv=$(REPORT_DIR)/report-25sku.csv src/script/prioritize-02/prioritize-25sku.js
-	k6 run --out csv=$(REPORT_DIR)/report-30sku.csv src/script/prioritize-02/prioritize-30sku.js
-	k6 run --out csv=$(REPORT_DIR)/report-35sku.csv src/script/prioritize-02/prioritize-35sku.js 
-	k6 run --out csv=$(REPORT_DIR)/report-40sku.csv src/script/prioritize-02/prioritize-40sku.js 
-	k6 run --out csv=$(REPORT_DIR)/report-45sku.csv src/script/prioritize-02/prioritize-45sku.js
-	k6 run --out csv=$(REPORT_DIR)/report-50sku.csv src/script/prioritize-02/prioritize-50sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-10sku.csv src/script/prioritize-02/prioritize-10sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-15sku.csv src/script/prioritize-02/prioritize-15sku.js 
+	# k6 run --out csv=$(REPORT_DIR)/report-20sku.csv src/script/prioritize-02/prioritize-20sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-25sku.csv src/script/prioritize-02/prioritize-25sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-30sku.csv src/script/prioritize-02/prioritize-30sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-35sku.csv src/script/prioritize-02/prioritize-35sku.js 
+	# k6 run --out csv=$(REPORT_DIR)/report-40sku.csv src/script/prioritize-02/prioritize-40sku.js 
+	# k6 run --out csv=$(REPORT_DIR)/report-45sku.csv src/script/prioritize-02/prioritize-45sku.js
+	# k6 run --out csv=$(REPORT_DIR)/report-50sku.csv src/script/prioritize-02/prioritize-50sku.js
+# Combine all CSVs into one file
+	@echo "Merging CSV reports into one file..."
+	@{ head -n 1 $(REPORT_DIR)/report-1sku.csv; \
+	   tail -n +2 -q $(CSV_FILES); } > $(MERGED_REPORT)
+	@echo "Merged report generated: $(MERGED_REPORT)"
 
 
 run-test-prioritize-03: 
 	k6 run --out csv=src/Reports/report-prioritize03/report-1sku.csv src/script/prioritize-03/prioritize-1sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-5sku.csv src/script/prioritize-03/prioritize-5sku.js 
-	k6 run --out csv=src/Reports/report-prioritize03/report-10sku.csv src/script/prioritize-03/prioritize-10sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-15sku.csv src/script/prioritize-03/prioritize-15sku.js 
-	k6 run --out csv=src/Reports/report-prioritize03/report-20sku.csv src/script/prioritize-03/prioritize-20sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-25sku.csv src/script/prioritize-03/prioritize-25sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-30sku.csv src/script/prioritize-03/prioritize-30sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-35sku.csv src/script/prioritize-03/prioritize-35sku.js 
-	k6 run --out csv=src/Reports/report-prioritize03/report-40sku.csv src/script/prioritize-03/prioritize-40sku.js 
-	k6 run --out csv=src/Reports/report-prioritize03/report-45sku.csv src/script/prioritize-03/prioritize-45sku.js
-	k6 run --out csv=src/Reports/report-prioritize03/report-50sku.csv src/script/prioritize-03/prioritize-50sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-5sku.csv src/script/prioritize-03/prioritize-5sku.js 
+	# k6 run --out csv=src/Reports/report-prioritize03/report-10sku.csv src/script/prioritize-03/prioritize-10sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-15sku.csv src/script/prioritize-03/prioritize-15sku.js 
+	# k6 run --out csv=src/Reports/report-prioritize03/report-20sku.csv src/script/prioritize-03/prioritize-20sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-25sku.csv src/script/prioritize-03/prioritize-25sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-30sku.csv src/script/prioritize-03/prioritize-30sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-35sku.csv src/script/prioritize-03/prioritize-35sku.js 
+	# k6 run --out csv=src/Reports/report-prioritize03/report-40sku.csv src/script/prioritize-03/prioritize-40sku.js 
+	# k6 run --out csv=src/Reports/report-prioritize03/report-45sku.csv src/script/prioritize-03/prioritize-45sku.js
+	# k6 run --out csv=src/Reports/report-prioritize03/report-50sku.csv src/script/prioritize-03/prioritize-50sku.js
 
 run-test-prioritize-04: 
 	k6 run --out csv=src/Reports/report-prioritize04/report-1sku.csv src/script/prioritize-04/prioritize-1sku.js

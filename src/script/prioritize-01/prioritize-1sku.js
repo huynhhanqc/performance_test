@@ -6,6 +6,7 @@ import OrderPage from "../../Page/OrderPage.js";
 export const options = {
   scenarios: {
     order_rule_01_01_sku: {
+      startTime: "0s",
       options: {
         browser: {
           type: "chromium",
@@ -16,7 +17,8 @@ export const options = {
       vus: 1,
       iterations: 1,
     },
-    order_rule_01_1_sku: {
+    order_rule_1_01_sku: {
+      startTime: "20s",
       options: {
         browser: {
           type: "chromium",
@@ -40,15 +42,20 @@ export async function checkout01() {
   });
   try {
     await loginPage.urlLoginPage();
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     await orderPage.goToUrlHomePage();
-    await orderPage.searchSku("200400012");
+    sleep(3);
+    await orderPage.searchSku("100540086");
     await Promise.all([page.waitForNavigation(), orderPage.CLickBtnSearch()]);
     await orderPage.clickBtnAddCard();
     sleep(3);
     await orderPage.goToUrlCheckOut();
+    sleep(3);
   } finally {
     await page.close();
   }
@@ -63,6 +70,9 @@ export async function checkout() {
   });
   try {
     await loginPage.urlLoginPage();
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);

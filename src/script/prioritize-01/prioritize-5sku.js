@@ -6,6 +6,7 @@ import OrderPage from "../../Page/OrderPage.js";
 export const options = {
   scenarios: {
     order_rule_01_05_sku: {
+      startTime: "0s",
       options: {
         browser: {
           type: "chromium",
@@ -17,6 +18,7 @@ export const options = {
       iterations: 1,
     },
     order_rule_01_5_sku: {
+      startTime: "20s",
       options: {
         browser: {
           type: "chromium",
@@ -31,7 +33,7 @@ export const options = {
 };
 
 export async function checkout05() {
-  const listProduct = [201900001, 100160022, 100230070, 100230056];
+  const listProduct = [204900024, 422202253, 422218359, 422218358];
   const page = await browser.newPage();
 
   const loginPage = new LoginPage(page);
@@ -42,6 +44,9 @@ export async function checkout05() {
   });
   try {
     await loginPage.urlLoginPage();
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
@@ -68,6 +73,9 @@ export async function checkout() {
   });
   try {
     await loginPage.urlLoginPage();
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
     await loginPage.enterUsername("0344535989");
     await loginPage.enterPassword("Truonghan1506");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);

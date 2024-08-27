@@ -20,7 +20,6 @@ export const options = {
 };
 export async function deleteProduct() {
   const page = await browser.newPage();
-
   const loginPage = new LoginPage(page);
   const orderPage = new OrderPage(page);
   await page.setViewportSize({
@@ -28,22 +27,26 @@ export async function deleteProduct() {
     height: 1080,
   });
   try {
-    await page.goto("https://beta.hasaki.vn/#popup-login");
-    await loginPage.enterUsername("0344535989");
-    await loginPage.enterPassword("Truonghan1506");
+    await loginPage.urlLoginPage();
+    sleep(3);
+    await orderPage.clickAgreeButton();
+    await page.waitForTimeout(500);
+    await loginPage.enterUsername("auto2@yopmail.com");
+    await loginPage.enterPassword("123456");
     await Promise.all([page.waitForNavigation(), loginPage.clickLogin()]);
     await orderPage.clickCard();
     sleep(2);
-    while (true) {
-      const btnDeleteProduct = await page.$(
-        "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
-      );
-      if (!btnDeleteProduct) {
-        break;
-      }
-      await btnDeleteProduct.click();
-      await page.waitForTimeout(1000);
-    }
+    // while (true) {
+    //   const btnDeleteProduct = await page.$(
+    //     "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
+    //   );
+    //   if (!btnDeleteProduct) {
+    //     break;
+    //   }
+    //   await btnDeleteProduct.click();
+    //   await page.waitForTimeout(1000);
+    // }
+    await orderPage.deleteAllProducts();
   } finally {
     await page.close();
   }
