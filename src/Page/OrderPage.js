@@ -16,7 +16,7 @@ class OrderPage {
       "(//button[@aria-label='Thay đổi'][contains(text(),'Thay đổi')])[1]"
     );
     this.btnContinue = page.locator("//button[contains(text(),'Tiếp tục')]");
-    this.btnDeleteProduct = page.locator(
+    this.btnDeleteProduct = page.$(
       "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
     );
     this.agreeButton = page.locator(
@@ -37,11 +37,18 @@ class OrderPage {
   }
 
   async deleteAllProducts() {
+    console.log("asdasdasdasdasds");
+
     while (true) {
-      if (!this.btnDeleteProduct) {
+      const btnDeleteProduct = await this.page.$(
+        "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
+      );
+
+      if (!btnDeleteProduct) {
         break;
       }
-      await this.btnDeleteProduct.click();
+      await btnDeleteProduct.click();
+      await this.page.waitForTimeout(1000);
     }
   }
 
@@ -71,9 +78,6 @@ class OrderPage {
   }
   async clickBtnContinue() {
     await this.btnContinue.click();
-  }
-  async clickBtnDeleteProduct() {
-    await this.btnDeleteProduct.click();
   }
 }
 
