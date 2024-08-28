@@ -8,9 +8,7 @@ class OrderPage {
     this.btnAddCard = page.locator(
       "//button[@id='product-addtocart-button']//span[contains(text(),'Giỏ hàng')]"
     );
-    this.btnCard = page.locator(
-      "//a[@href='https://beta.hasaki.vn/checkout/cart']//img[@class='loading']"
-    );
+    this.btnCard = page.locator("(//img[@class='loading'])[5]");
     this.btnSubmit = page.locator(
       "(//button[@type='submit'][contains(text(),'Tiến hành đặt hàng')])[1]"
     );
@@ -18,8 +16,35 @@ class OrderPage {
       "(//button[@aria-label='Thay đổi'][contains(text(),'Thay đổi')])[1]"
     );
     this.btnContinue = page.locator("//button[contains(text(),'Tiếp tục')]");
-    this.btnDeleteProduct = page.locator("//*[contains(text(),'Xóa')]");
+    this.btnDeleteProduct = page.locator(
+      "//a[@class='item_sub_sp _removeItemCart'][normalize-space()='Xóa']"
+    );
+    this.agreeButton = page.locator(
+      "//*[@id='onesignal-slidedown-allow-button']"
+    );
   }
+
+  async clickAgreeButton() {
+    while (true) {
+      if (await this.agreeButton.isVisible()) {
+        await this.agreeButton.click();
+        break;
+      } else {
+        console.log("Button not visible yet. Retrying...");
+      }
+      break;
+    }
+  }
+
+  async deleteAllProducts() {
+    while (true) {
+      if (!this.btnDeleteProduct) {
+        break;
+      }
+      await this.btnDeleteProduct.click();
+    }
+  }
+
   async goToUrlHomePage() {
     await this.page.goto(this.urlHomePage);
   }
